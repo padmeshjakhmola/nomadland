@@ -23,6 +23,15 @@ const config = {
           1: "#E60023", //default color of the website
           2: "#ba001d", // Slightly darker shade
         },
+        blue: {
+          1: "#0076D3", //for animated headings
+        },
+        green: {
+          1: "#507A57",
+        },
+        yellow: {
+          1: "#C28B00"
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

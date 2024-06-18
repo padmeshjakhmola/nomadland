@@ -1,8 +1,8 @@
-import { Navbar } from "@/components/Navbar";
+import Top from "@/components/Top";
 import React from "react";
 
 const Home = () => {
-  return <Navbar />;
+  return <Top />;
 };
 
 export default Home;
