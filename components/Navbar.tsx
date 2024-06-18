@@ -198,7 +198,7 @@ export function Navbar() {
                   key={label}
                   href={route}
                   className={cn(
-                    "group inline-flex h-10 w-max items-center justify-center rounded-full bg-transparent px-4 py-2 text-base font-medium transition-colors hover:text-black focus:bg-black focus:text-white focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50",
+                    "group inline-flex h-10 w-max items-center justify-center rounded-full bg-transparent px-4 py-2 text-base font-medium transition-colors focus:bg-black focus:text-white focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50",
                     { "bg-black text-white": isActive }
                   )}
                 >
@@ -302,9 +302,6 @@ const MountainIcon: FC<React.ImgHTMLAttributes<HTMLImageElement>> = (props) => {
   return (
     <div className="flex items-center">
       <Image src={logo} alt="company logo" width={30} height={30} />
-      {/* <h2 className={`${ubuntu.className} text-xl mx-2 text-red-1`}>
-        Nomadland
-      </h2> */}
     </div>
   );
 };
