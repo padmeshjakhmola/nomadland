@@ -13,9 +13,9 @@ const RenderHomeImages = () => {
     <div className="relative flex justify-end mt-20">
       <div className="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-white to-transparent z-10"></div>
       {columns.map((column, columnIndex) => (
-        <div key={columnIndex} className="w-1/6 flex flex-col p-1">
+        <div key={columnIndex} className="w-1/6 flex flex-col p-0.5 md:p-1">
           {column.map((src, index) => (
-            <div key={index} className="w-full h-64 p-1">
+            <div key={index} className="w-full h-64 p-0.5 md:p-1">
               <div className="relative w-full h-full">
                 <Image
                   src={src}

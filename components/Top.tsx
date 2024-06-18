@@ -34,12 +34,12 @@ const Top = () => {
   return (
     <div className="flex flex-col align-bottom h-96 w-full items-center justify-end gap-2">
       <div className="relative z-10">
-        <h1 className="text-6xl">Post your next</h1>
+        <h1 className="text-5xl md:text-6xl">Post your next</h1>
       </div>
       {headings.map((heading, i) => (
         <div key={i}>
           <h2
-            className={`absolute text-6xl font-semibold text-center w-full left-0 transition-transform duration-500 ease-in-out transform ${
+            className={`absolute text-5xl md:text-6xl font-semibold text-center w-full left-0 transition-transform duration-500 ease-in-out transform ${
               index === i
                 ? "translate-y-0 opacity-100 z-10"
                 : "-translate-y-20 opacity-0 z-0"

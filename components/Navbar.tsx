@@ -54,24 +54,44 @@ export function Navbar() {
               className="flex w-full items-center py-2 text-lg font-semibold"
               href="/"
             >
-              Home
+              About
             </Link>
             <Link
               className="flex w-full items-center py-2 text-lg font-semibold"
               href="/contact"
             >
-              Contact
+              Bussiness
             </Link>
             <Link
               className="flex w-full items-center py-2 text-lg font-semibold"
               href="/about"
             >
-              About
+              Blog
             </Link>
 
-            <Link className="items-center py-2 text-lg font-semibold" href="#">
-              <Button className="flex w-full">Sign In</Button>
-            </Link>
+            <div className="flex flex-col gap-4 my-4">
+              <SignedOut>
+                <Link href="/sign-in">
+                  <Button className="rounded-full bg-red-1 text-base hover:bg-red-2 w-full">
+                    Log in
+                  </Button>
+                </Link>
+
+                <Link href="/sign-up">
+                  <Button className="rounded-full text-black bg-slate-200 text-base hover:bg-slate-300 w-full">
+                    Sign up
+                  </Button>
+                </Link>
+              </SignedOut>
+              <SignedIn>
+                <Button
+                  className="rounded-full bg-red-1 text-base hover:bg-red-2 w-full"
+                  onClick={() => signOut(() => router.push("/"))}
+                >
+                  Sign out
+                </Button>
+              </SignedIn>
+            </div>
           </div>
         </SheetContent>
       </Sheet>
@@ -79,24 +99,26 @@ export function Navbar() {
         <MountainIcon className="h-6 w-6" />
         <span className="sr-only">Acme Inc</span>
       </Link>
-      <Link
-        className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-base font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-        href="#"
-      >
-        Today
-      </Link>
-      <Link
-        className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-base font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-        href="#"
-      >
-        Watch
-      </Link>
-      <Link
-        className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-base font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-        href="#"
-      >
-        Explore
-      </Link>
+      <nav className="hidden lg:flex">
+        <Link
+          className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-base font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+          href="#"
+        >
+          Today
+        </Link>
+        <Link
+          className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-base font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+          href="#"
+        >
+          Watch
+        </Link>
+        <Link
+          className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-base font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+          href="#"
+        >
+          Explore
+        </Link>
+      </nav>
       <nav className="ml-auto hidden lg:flex gap-2 items-center">
         <Link
           className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-base font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
