@@ -15,7 +15,13 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { FC } from "react";
-// import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
 
 export function Navbar() {
   return (
@@ -103,14 +109,23 @@ export function Navbar() {
         >
           Blog
         </Link>
-        <div className="space-x-2">
-          <Button className="rounded-full bg-red-1 text-base hover:bg-red-2">
-            Log in
-          </Button>
-          <Button className="rounded-full text-black bg-slate-200 text-base hover:bg-slate-300">
-            Sign up
-          </Button>
-        </div>
+        <SignedOut>
+          <div className="space-x-2">
+            <SignInButton>
+              <Button className="rounded-full bg-red-1 text-base hover:bg-red-2">
+                Log in
+              </Button>
+            </SignInButton>
+            <SignUpButton>
+              <Button className="rounded-full text-black bg-slate-200 text-base hover:bg-slate-300">
+                Sign up
+              </Button>
+            </SignUpButton>
+          </div>
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
       </nav>
     </header>
   );
