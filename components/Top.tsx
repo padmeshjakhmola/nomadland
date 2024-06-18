@@ -1,11 +1,24 @@
 "use client";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 const headings = [
-  { text: "scenic road trips", color: "text-yellow-1" },
-  { text: "exotic beach escapes", color: "text-green-1" },
-  { text: "historic city tours", color: "text-blue-1" },
-  { text: "epic mountain climbs", color: "text-green-1" },
+  {
+    text: "scenic road trips",
+    color: "text-yellow-1",
+  },
+  {
+    text: "exotic beach escapes",
+    color: "text-green-1",
+  },
+  {
+    text: "historic city tours",
+    color: "text-blue-1",
+  },
+  {
+    text: "epic mountain climbs",
+    color: "text-green-1",
+  },
 ];
 
 const Top = () => {
@@ -20,7 +33,7 @@ const Top = () => {
 
   return (
     <div className="flex flex-col align-bottom h-96 w-full items-center justify-end gap-2">
-      <div>
+      <div className="relative z-10">
         <h1 className="text-6xl">Post your next</h1>
       </div>
       {headings.map((heading, i) => (
