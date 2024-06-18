@@ -78,3 +78,9 @@
 .transition-transform {
   transition: opacity 500ms ease-in-out, transform 500ms ease-in-out;
 }
+
+.glassmorphism-auth {
+  background: rgba(6, 3, 3, 0.711);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
