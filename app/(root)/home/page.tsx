@@ -8,7 +8,7 @@ const page = () => {
   return (
     <main className="absolute mt-20 w-full">
       <div className="flex w-full items-center justify-center my-10">
-        <div className="grid grid-rows-2 md:grid-cols-2 md:grid-rows-1 w-2/3 shadow-[0_0_10px_10px_rgba(0,0,0,0.1)] rounded-3xl md:h-[32rem]">
+        <div className="grid grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 md:w-2/3 w-full shadow-[0_0_10px_10px_rgba(0,0,0,0.1)] rounded-3xl lg:h-[32rem]">
           {/* Now 2 components inside */}
           <div className="flex-1">
             <div className="relative w-full h-full">
