@@ -14,10 +14,11 @@ const page = () => {
             <div className="relative w-full h-full">
               <Image
                 src={test_image}
-                className="rounded-t-3xl md:rounded-s-3xl"
+                className="rounded-t-3xl md:rounded-3xl"
                 alt="user_image"
                 fill
                 objectFit="cover"
+                priority={true}
               />
             </div>
           </div>
