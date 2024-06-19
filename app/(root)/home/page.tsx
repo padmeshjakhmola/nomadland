@@ -4,17 +4,17 @@ import Image from "next/image";
 import React from "react";
 
 const page = () => {
-  const test_image = images.mountains[1];
+  const test_image = images.mountains[2];
   return (
     <main className="absolute mt-20 w-full">
       <div className="flex w-full items-center justify-center my-10">
-        <div className="flex justify-center w-2/3 grid-cols-2 shadow-[0_0_10px_10px_rgba(0,0,0,0.1)] rounded-3xl h-[32rem]">
+        <div className="grid grid-rows-2 md:grid-cols-2 md:grid-rows-1 w-2/3 shadow-[0_0_10px_10px_rgba(0,0,0,0.1)] rounded-3xl md:h-[32rem]">
           {/* Now 2 components inside */}
-          <div className="flex-1 w-max">
+          <div className="flex-1">
             <div className="relative w-full h-full">
               <Image
                 src={test_image}
-                className="rounded-s-3xl"
+                className="rounded-t-3xl md:rounded-s-3xl"
                 alt="user_image"
                 fill
                 objectFit="cover"
@@ -42,7 +42,7 @@ const page = () => {
                   />
                 </div>
                 <div>
-                  <Button className="bg-red-1 rounded-full">Save</Button>
+                  <Button className="bg-red-1 hover:bg-red-2 rounded-full">Save</Button>
                 </div>
               </div>
               {/* 2 */}
@@ -68,7 +68,7 @@ const page = () => {
                     <p className="text-sm text-gray-600">@prankshadow</p>
                   </div>
                 </div>
-                <Button className="bg-red-1 rounded-full">Follow</Button>
+                <Button className="bg-red-1 hover:bg-red-2 rounded-full">Follow</Button>
               </div>
             </div>
             {/* comments */}
