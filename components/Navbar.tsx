@@ -233,20 +233,34 @@ export function Navbar() {
           </>
         ) : (
           <div className="flex flex-row space-x-3 mx-4">
-            <Image
-              src="/icons/bell.svg"
-              width={40}
-              height={40}
-              alt="notification"
-              className="hover:bg-slate-200 rounded-full cursor-pointer p-2"
-            />
-            <Image
-              src="/icons/message.svg"
-              width={40}
-              height={40}
-              alt="notification"
-              className="hover:bg-slate-200 rounded-full cursor-pointer p-2"
-            />
+            <HoverCard>
+              <HoverCardTrigger>
+                <Image
+                  src="/icons/bell.svg"
+                  width={40}
+                  height={40}
+                  alt="notification"
+                  className="hover:bg-slate-200 rounded-full cursor-pointer p-2"
+                />
+              </HoverCardTrigger>
+              <HoverCardContent>
+                This feature will be available soon
+              </HoverCardContent>
+            </HoverCard>
+            <HoverCard>
+              <HoverCardTrigger>
+                <Image
+                  src="/icons/message.svg"
+                  width={40}
+                  height={40}
+                  alt="notification"
+                  className="hover:bg-slate-200 rounded-full cursor-pointer p-2"
+                />
+              </HoverCardTrigger>
+              <HoverCardContent>
+                This feature will be available soon
+              </HoverCardContent>
+            </HoverCard>
           </div>
         )}
         <div className="space-x-2">
