@@ -2,8 +2,38 @@ import { Button } from "@/components/ui/button";
 import { images } from "@/lib/utils";
 import Image from "next/image";
 import React from "react";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
-const page = () => {
+const page = async () => {
+  const { userId } = auth();
+
+  if (!userId) {
+    console.warn("User not logged in");
+  }
+
+  const user = await currentUser();
+
+  // console.log(user);
+
+  const userData = {
+    name: `${user?.firstName ?? ""} ${user?.lastName ?? ""}`,
+    email: user?.emailAddresses?.[0].emailAddress ?? "no_email",
+    profile_picture: user?.imageUrl ?? "no_profile_image",
+  };
+
+  try {
+    const response = await fetch("http://localhost:3001/v1/users/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(userData),
+    });
+
+    const result = await response.json();
+    console.log("User registered response:", result);
+  } catch (error) {
+    console.error("Unable to save user");
+  }
+
   const test_image = images.mountains[2];
   return (
     <main className="absolute mt-20 w-full">
@@ -43,7 +73,9 @@ const page = () => {
                   />
                 </div>
                 <div>
-                  <Button className="bg-red-1 hover:bg-red-2 rounded-full">Save</Button>
+                  <Button className="bg-red-1 hover:bg-red-2 rounded-full">
+                    Save
+                  </Button>
                 </div>
               </div>
               {/* 2 */}
@@ -69,7 +101,9 @@ const page = () => {
                     <p className="text-sm text-gray-600">@prankshadow</p>
                   </div>
                 </div>
-                <Button className="bg-red-1 hover:bg-red-2 rounded-full">Follow</Button>
+                <Button className="bg-red-1 hover:bg-red-2 rounded-full">
+                  Follow
+                </Button>
               </div>
             </div>
             {/* comments */}
