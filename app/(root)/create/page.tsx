@@ -17,18 +17,38 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { open_sans } from "@/app/fonts";
+import { useToast } from "@/components/ui/use-toast";
+import { useState } from "react";
+
+const MAX_FILE_SIZE = 5000000;
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+];
 
 const formSchema = z.object({
+  // image: z
+  //   .any()
+  //   .refine((file) => file?.size <= MAX_FILE_SIZE, `Max image size is 5MB.`)
+  //   .refine(
+  //     (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
+  //     "Only .jpg, .jpeg, .png and .webp formats are supported."
+  //   ),
   title: z.string().min(2).max(50),
   description: z.string().min(2).max(100),
   link: z.string().min(2).max(50),
 });
 
 function ProfileForm() {
+  const { toast } = useToast();
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      // image: "",
       title: "",
       description: "",
       link: "",
@@ -36,10 +56,24 @@ function ProfileForm() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const userPosts = {
+      title: values.title,
+      description: values.description,
+      link: values.link,
+    };
+
+    try {
+      const response = await fetch("http://localhost:3001/v1/posts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userPosts),
+      });
+      const result = await response.json();
+      console.log("User posts response:", result);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
@@ -48,9 +82,9 @@ function ProfileForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className={`${open_sans.className} space-y-8`}
       >
-        <FormField
+        {/* <FormField
           control={form.control}
-          name="title"
+          name="image"
           render={({ field }) => (
             <>
               <FormItem>
@@ -62,7 +96,7 @@ function ProfileForm() {
               </FormItem>
             </>
           )}
-        />
+        /> */}
         <FormField
           control={form.control}
           name="title"
