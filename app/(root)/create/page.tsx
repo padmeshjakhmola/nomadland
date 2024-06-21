@@ -19,7 +19,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { open_sans } from "@/app/fonts";
 
 const formSchema = z.object({
-  username: z.string().min(2).max(50),
   title: z.string().min(2).max(50),
   description: z.string().min(2).max(100),
   link: z.string().min(2).max(50),
@@ -30,7 +29,6 @@ function ProfileForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
       title: "",
       description: "",
       link: "",

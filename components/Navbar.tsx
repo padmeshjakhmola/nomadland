@@ -29,6 +29,7 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import { navbarLinks } from "@/constants";
 import { cn } from "@/lib/utils";
+import Cookies from "js-cookie";
 
 export function Navbar() {
   const router = useRouter();
@@ -37,8 +38,9 @@ export function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (isSignedIn) {
+    if (isSignedIn && !Cookies.get("redirected")) {
       router.push("/home");
+      Cookies.set("redirected", "true", { expires: 1 }); 
     }
   }, [isSignedIn, router]);
 
