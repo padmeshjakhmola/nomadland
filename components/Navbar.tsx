@@ -114,9 +114,14 @@ export function Navbar() {
 
               <div className="flex flex-col gap-4 my-4">
                 <SignedIn>
-                  <Button className="rounded-full bg-red-1 text-base hover:bg-red-2 w-full">
-                    Sign out
-                  </Button>
+                  <SignOutButton redirectUrl="/">
+                    <Button
+                      className="rounded-full bg-red-1 text-base hover:bg-red-2 w-full"
+                      onClick={handleSignout}
+                    >
+                      Sign out
+                    </Button>
+                  </SignOutButton>
                 </SignedIn>
               </div>
             </div>
