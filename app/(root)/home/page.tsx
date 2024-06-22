@@ -76,10 +76,10 @@ const HomePage = () => {
                 </div>
                 {/* 2 */}
                 <div>
-                  <h1 className="text-3xl text-start truncate">
+                  <h1 className="text-3xl text-start text-clip">
                     {post?.title}
                   </h1>
-                  <h1 className="text-lg text-start truncate text-slate-500">
+                  <h1 className="text-lg text-start text-slate-500">
                     {post?.description}
                   </h1>
                 </div>

@@ -4,7 +4,7 @@ import React from "react";
 const Page = () => {
   return (
     <div className="flex items-center justify-center h-screen w-full glassmorphism-auth">
-      <SignUp signInUrl="/sign-in" />
+      <SignUp signInUrl="/sign-in"  forceRedirectUrl="/home"  />
     </div>
   );
 };
