@@ -25,7 +25,7 @@ const fetchdata = async () => {
     });
 
     const result = await response.json();
-    console.log("User registered response:", result);
+    return result;
   } catch (error) {
     console.error("Unable to save user", error);
   }
