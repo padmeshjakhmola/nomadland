@@ -70,6 +70,7 @@ function ProfileForm() {
         body: JSON.stringify(userPosts),
       });
       const result = await response.json();
+      toast({ title: "Post created successfully" });
       console.log("User posts response:", result);
     } catch (error) {
       console.error(error);
