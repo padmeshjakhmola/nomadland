@@ -252,16 +252,18 @@ export function Navbar() {
               </Button>
             </Link>
           </SignedOut>
-          <SignedIn>
-            <SignOutButton>
-              <Button
-                className="rounded-full bg-red-1 text-base hover:bg-red-2"
-                onClick={handleSignout}
-              >
-                Sign out
-              </Button>
-            </SignOutButton>
-          </SignedIn>
+          <div className="flex justify-center items-center">
+            <SignedIn>
+              <SignOutButton>
+                <Button
+                  className="rounded-full bg-red-1 text-base hover:bg-red-2"
+                  onClick={handleSignout}
+                >
+                  Sign out
+                </Button>
+              </SignOutButton>
+            </SignedIn>
+          </div>
         </div>
       </nav>
     </header>

@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import fetchdata from "@/constants/server";
 import { images } from "@/lib/utils";
 import { Post } from "@/types";
 import Image from "next/image";
@@ -26,6 +27,8 @@ const HomePage = () => {
 
     fetchPosts();
   }, []);
+
+  // TODO: user details fetching after user clicks on /create
 
   return (
     <main className="absolute mt-20 w-full">
@@ -101,7 +104,7 @@ const HomePage = () => {
                     />
                     <div className="flex flex-col px-2">
                       <p className="text-base">{post?.User?.name}</p>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-gray-600 text-start">
                         {post?.User?.username ? `@${post.User.username}` : null}
                       </p>
                     </div>
