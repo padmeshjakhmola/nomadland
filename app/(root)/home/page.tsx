@@ -1,14 +1,55 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import fetchdata from "@/constants/server";
 import { images } from "@/lib/utils";
 import { Post } from "@/types";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { toast } from "@/components/ui/use-toast";
+
+const FormSchema = z.object({
+  // comment: z.string().min(2, {
+  //   message: "Comment can't be empty and of 2 characters",
+  // }),
+});
+
 const HomePage = () => {
   const test_image = images.mountains[2];
   const [posts, setPosts] = useState<Post[]>([]);
+
+  const [input, setInput] = useState("");
+
+  const handleInputChange = (e) => {
+    setInput(e.target.value);
+  };
+
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      comment: "",
+    },
+  });
+
+  function onSubmit(data: z.infer<typeof FormSchema>) {
+    // toast({
+    //   title: "You submitted the following values:",
+    // });
+    console.log(data);
+  }
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -82,7 +123,7 @@ const HomePage = () => {
                   <h1 className="text-3xl text-start text-clip">
                     {post?.title}
                   </h1>
-                  <h1 className="text-lg text-start text-slate-500">
+                  <h1 className="text-lg text-start text-clip overflow-hidden text-slate-500">
                     {post?.description}
                   </h1>
                 </div>
@@ -91,7 +132,6 @@ const HomePage = () => {
                   <div className="flex flex-row justify-center items-center">
                     {/* image and username */}
                     <Image
-                      // src="/images/user_image.jpg"
                       src={
                         post?.User?.profile_picture
                           ? post.User.profile_picture
@@ -115,9 +155,9 @@ const HomePage = () => {
                 </div>
               </div>
               {/* comments */}
-              <div className="mt-auto border-t-2 border-gray-400 ">
-                <div className="flex justify-between mx-10 my-6">
-                  <h1 className="text-2xl">Add Reaction</h1>
+              <div className="mt-auto border-t-2 border-gray-400 space-y-3 py-5">
+                <div className="flex justify-between mx-8">
+                  <h1 className="text-2xl">Comments</h1>
                   <Image
                     src="/icons/like.svg"
                     alt="like_icon"
@@ -125,6 +165,45 @@ const HomePage = () => {
                     height={40}
                     className="bg-slate-200 rounded-full cursor-pointer p-2"
                   />
+                </div>
+                <div className="mx-8">
+                  <Form {...form}>
+                    <form
+                      onSubmit={form.handleSubmit(onSubmit)}
+                      className="flex flex-row gap-2 justify-between"
+                    >
+                      <FormField
+                        control={form.control}
+                        name="comment"
+                        render={({ field }) => (
+                          <FormItem className="w-full">
+                            <FormControl>
+                              <Input
+                                placeholder="Add a comment"
+                                {...field}
+                                className="rounded-full"
+                                value={input}
+                                onChange={handleInputChange}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <Button
+                        type="submit"
+                        className="rounded-full bg-red-1 hover:bg-red-2"
+                        disabled={!input}
+                      >
+                        <Image
+                          src="/icons/comment.svg"
+                          alt="comment"
+                          width={20}
+                          height={20}
+                        />
+                      </Button>
+                    </form>
+                  </Form>
                 </div>
               </div>
             </div>
