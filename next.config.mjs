@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "img.clerk.com",
       },
+      {
+        protocol: "https",
+        hostname: `${process.env.AWS_HOST}.s3.amazonaws.com`,
+      },
     ],
   },
 };

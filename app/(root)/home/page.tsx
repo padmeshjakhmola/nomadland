@@ -42,7 +42,7 @@ const HomePage = () => {
             <div className="flex-1">
               <div className="relative w-full h-full">
                 <Image
-                  src={test_image}
+                  src={`${post.link}`}
                   className="rounded-t-3xl md:rounded-3xl"
                   alt="user_image"
                   fill
