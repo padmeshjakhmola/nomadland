@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { images } from "@/lib/utils";
 import { Comment, CommentFormProps, Post, UserData } from "@/types";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -30,6 +30,7 @@ const FormSchema = z.object({
 const AllPosts = ({ userData }: { userData: UserData }) => {
   const test_image = images.mountains[2];
   const [posts, setPosts] = useState<Post[]>([]);
+  const [fetchTrigger, setFetchTrigger] = useState(false);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -46,9 +47,7 @@ const AllPosts = ({ userData }: { userData: UserData }) => {
     };
 
     fetchPosts();
-  }, []);
-
-  // TODO: user details fetching after user clicks on /create
+  }, [fetchTrigger]);
 
   return (
     <main>
@@ -133,7 +132,6 @@ const AllPosts = ({ userData }: { userData: UserData }) => {
                   </Button>
                 </div>
               </div>
-              {/* new compppppppp */}
               <PostComments postId={post.id} userData={userData} />
             </div>
           </div>
@@ -152,21 +150,21 @@ const PostComments = ({
 }) => {
   const [comments, setComments] = useState<Comment[]>([]);
 
-  useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:3001/v1/comments/comments/${postId}`
-        );
-        const result = await response.json();
-        setComments(result);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchComments();
+  const fetchComments = useCallback(async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/v1/comments/comments/${postId}`
+      );
+      const result = await response.json();
+      setComments(result);
+    } catch (error) {
+      console.error(error);
+    }
   }, [postId]);
+
+  useEffect(() => {
+    fetchComments();
+  }, [fetchComments]);
 
   return (
     <>
@@ -211,9 +209,7 @@ const PostComments = ({
         <CommentForm
           postId={postId}
           userData={userData}
-          onCommentAdded={(newComment) =>
-            setComments([newComment, ...comments])
-          }
+          onCommentAdded={() => fetchComments()}
         />
       </div>
     </>
