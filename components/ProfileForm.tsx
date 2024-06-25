@@ -54,8 +54,8 @@ function ProfileForm({ userData }: { userData: UserData }) {
     },
   });
 
-  const handleFileChange = (e: { target: { files: any[] } }) => {
-    const file = e.target.files[0];
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
     form.setValue("image", file);
     console.log("handleFileChange:", file);
   };

@@ -21,3 +21,16 @@ export interface Post {
   deletedAt: string | null;
   User: User;
 }
+
+export interface UserData {
+  name: string;
+  email: string;
+  profile_picture: string;
+  clerk_userId: string;
+  username: string;
+}
+
+export interface CommentFormProps {
+  postId: number; 
+  userData: UserData;
+}

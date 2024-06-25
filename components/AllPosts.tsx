@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import fetchdata from "@/constants/server";
 import { images } from "@/lib/utils";
-import { Post, UserData } from "@/types";
+import { CommentFormProps, Post, UserData } from "@/types";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
@@ -157,8 +157,11 @@ const AllPosts = ({ userData }: { userData: UserData }) => {
   );
 };
 
-const CommentForm = ({ postId, userData }) => {
+const CommentForm: React.FC<CommentFormProps> = ({ postId, userData }) => {
   const [input, setInput] = useState(""); // Local state for each form
+
+  console.log("userDatauserData", typeof userData, userData);
+  console.log("postIdpostIdpostId", typeof postId, postId);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
