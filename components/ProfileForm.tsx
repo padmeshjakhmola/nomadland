@@ -19,6 +19,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { open_sans } from "@/app/fonts";
 import { useToast } from "@/components/ui/use-toast";
 import { UserData } from "@/types";
+import { useState } from "react";
+import { Loader } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const MAX_FILE_SIZE = 2000000;
 const ACCEPTED_IMAGE_TYPES = [
@@ -44,6 +47,8 @@ const formSchema = z.object({
 
 function ProfileForm({ userData }: { userData: UserData }) {
   const { toast } = useToast();
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -68,12 +73,15 @@ function ProfileForm({ userData }: { userData: UserData }) {
     formData.append("userId", userData.id.toString());
 
     try {
+      setLoading(true);
       const response = await fetch("http://localhost:3001/v1/posts", {
         method: "POST",
         body: formData,
       });
       const result = await response.json();
       toast({ title: "Post created successfully" });
+      setLoading(false);
+      router.push("/home");
     } catch (error) {
       console.error(error);
       toast({ variant: "destructive", title: "Unable to create post" });
@@ -141,7 +149,13 @@ function ProfileForm({ userData }: { userData: UserData }) {
             </>
           )}
         />
-        <Button type="submit">Post</Button>
+        {loading ? (
+          <Button disabled>
+            <Loader className="animate-spin" />
+          </Button>
+        ) : (
+          <Button type="submit">Post</Button>
+        )}
       </form>
     </Form>
   );
