@@ -177,10 +177,7 @@ const PostComments = ({
           <div key={comment.id} className="mb-4">
             <div className="flex flex-row gap-2">
               <Image
-                src={
-                  comment?.User?.profile_picture ||
-                  "/images/default_user_image.jpg"
-                }
+                src={comment?.User?.profile_picture || "/images/user_image.jpg"}
                 width={30}
                 height={30}
                 alt="user-image"
@@ -258,7 +255,18 @@ const CommentForm: React.FC<CommentFormProps> = ({
           }
         );
         const newComment = await response.json();
-        onCommentAdded(newComment);
+
+        const newCommentWithUser = {
+          ...newComment,
+          User: {
+            name: userData.name,
+            email: userData.email,
+            username: userData.username,
+            profile_picture: userData.profile_picture,
+          },
+        };
+
+        onCommentAdded(newCommentWithUser);
         toast({
           description: "Comment was added successfully",
         });
