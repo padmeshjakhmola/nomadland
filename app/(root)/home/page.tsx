@@ -1,6 +1,6 @@
 import AllPosts from "@/components/AllPosts";
 import { Toaster } from "@/components/ui/toaster";
-import fetchdata from "@/constants/server";
+import { fetchdata } from "@/constants/server";
 
 const HomePage = async () => {
   const userData = await fetchdata();

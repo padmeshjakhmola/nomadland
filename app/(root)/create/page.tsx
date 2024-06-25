@@ -1,6 +1,6 @@
 import ProfileForm from "@/components/ProfileForm";
 import { Toaster } from "@/components/ui/toaster";
-import fetchdata from "@/constants/server";
+import { fetchdata } from "@/constants/server";
 
 const page = async () => {
   const userData = await fetchdata();

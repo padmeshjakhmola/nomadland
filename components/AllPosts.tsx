@@ -1,9 +1,8 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import fetchdata from "@/constants/server";
 import { images } from "@/lib/utils";
-import { CommentFormProps, Post, UserData } from "@/types";
+import { Comment, CommentFormProps, Post, UserData } from "@/types";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
@@ -133,22 +132,8 @@ const AllPosts = ({ userData }: { userData: UserData }) => {
                   </Button>
                 </div>
               </div>
-              {/* comments */}
-              <div className="mt-auto border-t-2 border-gray-400 space-y-3 py-5">
-                <div className="flex justify-between mx-8">
-                  <h1 className="text-xl flex justify-center items-center">
-                    Comments
-                  </h1>
-                  <Image
-                    src="/icons/like.svg"
-                    alt="like_icon"
-                    width={40}
-                    height={40}
-                    className="bg-slate-200 rounded-full cursor-pointer p-2"
-                  />
-                </div>
-                <CommentForm postId={post.id} userData={userData} />
-              </div>
+              {/* new compppppppp */}
+              <PostComments postId={post.id} userData={userData} />
             </div>
           </div>
         </div>
@@ -157,9 +142,70 @@ const AllPosts = ({ userData }: { userData: UserData }) => {
   );
 };
 
-const CommentForm: React.FC<CommentFormProps> = ({ postId, userData }) => {
+const PostComments = ({
+  postId,
+  userData,
+}: {
+  postId: number;
+  userData: UserData;
+}) => {
+  const [comments, setComments] = useState<Comment[]>([]);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3001/v1/comments/comments/${postId}`
+        );
+        const result = await response.json();
+        setComments(result);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchComments();
+  }, [postId]);
+
+  return (
+    <>
+      <div className="overflow-y-auto max-h-96 px-8">
+        {comments.map((comment) => (
+          <div key={comment.id} className="mb-4">
+            <p className="text-sm text-gray-800">{comment.text}</p>
+          </div>
+        ))}
+      </div>
+      <div className="mt-auto border-t-2 border-gray-400 space-y-3 py-5">
+        <div className="flex justify-between mx-8">
+          <h1 className="text-xl flex justify-center items-center">Comments</h1>
+          <Image
+            src="/icons/like.svg"
+            alt="like_icon"
+            width={40}
+            height={40}
+            className="bg-slate-200 rounded-full cursor-pointer p-2"
+          />
+        </div>
+        <CommentForm
+          postId={postId}
+          userData={userData}
+          onCommentAdded={(newComment) =>
+            setComments([newComment, ...comments])
+          }
+        />
+      </div>
+    </>
+  );
+};
+
+const CommentForm: React.FC<CommentFormProps> = ({
+  postId,
+  userData,
+  onCommentAdded,
+}) => {
   const { toast } = useToast();
-  const [input, setInput] = useState(""); // Local state for each form
+  const [input, setInput] = useState(""); 
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -179,11 +225,16 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId, userData }) => {
         postId,
       };
       try {
-        await fetch("http://localhost:3001/v1/comments/comments", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(commentData),
-        });
+        const response = await fetch(
+          "http://localhost:3001/v1/comments/comments",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(commentData),
+          }
+        );
+        const newComment = await response.json();
+        onCommentAdded(newComment);
         toast({
           description: "Comment was added successfully",
         });

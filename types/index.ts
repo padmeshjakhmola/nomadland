@@ -30,7 +30,18 @@ export interface UserData {
   username: string;
 }
 
+export interface Comment {
+  id: number;
+  text: string;
+  userId: number;
+  postId: number;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
+  User: User;
+}
 export interface CommentFormProps {
-  postId: number; 
+  postId: number;
   userData: UserData;
+  onCommentAdded: (newComment: Comment) => void; 
 }
