@@ -19,6 +19,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { toast, useToast } from "@/components/ui/use-toast";
+import { roboto } from "@/app/fonts";
 
 const FormSchema = z.object({
   comment: z.string().min(2, {
@@ -170,15 +171,38 @@ const PostComments = ({
   return (
     <>
       <div className="overflow-y-auto max-h-96 px-8">
+        <p className="text-base text-left mb-5 font-bold">Comments:</p>
+
         {comments.map((comment) => (
           <div key={comment.id} className="mb-4">
-            <p className="text-sm text-gray-800">{comment.text}</p>
+            <div className="flex flex-row gap-2">
+              <Image
+                src={
+                  comment?.User?.profile_picture ||
+                  "/images/default_user_image.jpg"
+                }
+                width={30}
+                height={30}
+                alt="user-image"
+                className="rounded-full"
+              />
+              <div className="flex flex-row justify-center items-center gap-2">
+                <p className="text-base text-gray-800">
+                  {comment?.User?.username}
+                </p>
+                <p className={`${roboto.className} text-base`}>
+                  {comment.text}
+                </p>
+              </div>
+            </div>
           </div>
         ))}
       </div>
       <div className="mt-auto border-t-2 border-gray-400 space-y-3 py-5">
         <div className="flex justify-between mx-8">
-          <h1 className="text-xl flex justify-center items-center">Comments</h1>
+          <h1 className="text-xl flex justify-center items-center">
+            {comments.length} Comments
+          </h1>
           <Image
             src="/icons/like.svg"
             alt="like_icon"
@@ -205,7 +229,7 @@ const CommentForm: React.FC<CommentFormProps> = ({
   onCommentAdded,
 }) => {
   const { toast } = useToast();
-  const [input, setInput] = useState(""); 
+  const [input, setInput] = useState("");
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
