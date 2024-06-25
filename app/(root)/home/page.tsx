@@ -22,9 +22,9 @@ import {
 import { toast } from "@/components/ui/use-toast";
 
 const FormSchema = z.object({
-  // comment: z.string().min(2, {
-  //   message: "Comment can't be empty and of 2 characters",
-  // }),
+  comment: z.string().min(2, {
+    // message: "Comment can't be empty and of 2 characters",
+  }),
 });
 
 const HomePage = () => {
@@ -78,7 +78,7 @@ const HomePage = () => {
           key={index}
           className="flex w-full items-center justify-center my-10"
         >
-          <div className="grid grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 md:w-2/3 w-full shadow-[0_0_10px_10px_rgba(0,0,0,0.1)] rounded-3xl lg:h-[32rem]">
+          <div className="grid grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 md:w-2/3 w-full shadow-[0_0_10px_10px_rgba(0,0,0,0.1)] rounded-3xl lg:h-[36rem]">
             {/* Now 2 components inside */}
             <div className="flex-1">
               <div className="relative w-full h-full">
@@ -157,7 +157,7 @@ const HomePage = () => {
               {/* comments */}
               <div className="mt-auto border-t-2 border-gray-400 space-y-3 py-5">
                 <div className="flex justify-between mx-8">
-                  <h1 className="text-2xl">Comments</h1>
+                  <h1 className="text-xl flex justify-center items-center">Comments</h1>
                   <Image
                     src="/icons/like.svg"
                     alt="like_icon"
