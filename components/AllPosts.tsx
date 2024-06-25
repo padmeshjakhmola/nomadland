@@ -160,9 +160,6 @@ const AllPosts = ({ userData }: { userData: UserData }) => {
 const CommentForm: React.FC<CommentFormProps> = ({ postId, userData }) => {
   const [input, setInput] = useState(""); // Local state for each form
 
-  console.log("userDatauserData", typeof userData, userData);
-  console.log("postIdpostIdpostId", typeof postId, postId);
-
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -171,9 +168,6 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId, userData }) => {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    // Handle comment submission
-    console.log(`Submitting comment for post ${postId}:`, data.comment);
-    // Reset the form after submission
     form.reset();
     setInput("");
 
@@ -192,8 +186,6 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId, userData }) => {
             body: JSON.stringify(commentData),
           }
         );
-        const result = await response.json();
-        console.log(result);
       } catch (error) {
         console.error(error);
       }

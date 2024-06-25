@@ -57,13 +57,11 @@ function ProfileForm({ userData }: { userData: UserData }) {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     form.setValue("image", file);
-    console.log("handleFileChange:", file);
   };
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const formData = new FormData();
-    console.log("VALUE_IMAGE:", values.image);
     formData.append("image", values.image);
     formData.append("title", values.title);
     formData.append("description", values.description);
@@ -76,7 +74,6 @@ function ProfileForm({ userData }: { userData: UserData }) {
       });
       const result = await response.json();
       toast({ title: "Post created successfully" });
-      console.log("User posts response:", result);
     } catch (error) {
       console.error(error);
     }
