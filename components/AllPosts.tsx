@@ -20,6 +20,22 @@ import {
 } from "@/components/ui/form";
 import { toast, useToast } from "@/components/ui/use-toast";
 import { roboto } from "@/app/fonts";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "./ui/alert-dialog";
 
 const FormSchema = z.object({
   comment: z.string().min(2, {
@@ -48,6 +64,35 @@ const AllPosts = ({ userData }: { userData: UserData }) => {
 
     fetchPosts();
   }, [fetchTrigger]);
+
+  const handleDeletePost = async (postId: number) => {
+    try {
+      const response = await fetch(`http://localhost:3001/v1/posts/${postId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userData.id}`,
+        },
+      });
+      if (response.ok) {
+        setPosts(posts.filter((post) => post.id !== postId));
+        toast({
+          description: "Post was deleted successfully",
+        });
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Error deleting post",
+        });
+      }
+    } catch (error) {
+      console.error("Error deleting post:", error);
+      toast({
+        variant: "destructive",
+        title: "Error deleting post",
+      });
+    }
+  };
 
   return (
     <main>
@@ -82,18 +127,55 @@ const AllPosts = ({ userData }: { userData: UserData }) => {
                       height={50}
                       className="hover:bg-slate-200 rounded-full cursor-pointer p-2"
                     />
-                    <Image
-                      src="/icons/more.svg"
-                      alt="more_icon"
-                      width={50}
-                      height={50}
-                      className="hover:bg-slate-200 rounded-full cursor-pointer p-2"
-                    />
+                    {post.userId === userData.id && (
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Image
+                            src="/icons/more.svg"
+                            alt="more_icon"
+                            width={50}
+                            height={50}
+                            className="hover:bg-slate-200 rounded-full cursor-pointer p-2"
+                          />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <Button
+                                className="rounded-full w-full"
+                                variant="link"
+                              >
+                                Delete
+                              </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>
+                                  Are you absolutely sure?
+                                </AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  This action cannot be undone. This will
+                                  permanently delete your post.
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogAction
+                                  onClick={() => handleDeletePost(post.id)}
+                                >
+                                  Continue
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    )}
                   </div>
                   <div>
-                    <Button className="bg-red-1 hover:bg-red-2 rounded-full">
+                    {/* <Button className="bg-red-1 hover:bg-red-2 rounded-full" disabled>
                       Save
-                    </Button>
+                    </Button> */}
                   </div>
                 </div>
                 {/* 2 */}
