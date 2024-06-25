@@ -76,6 +76,7 @@ function ProfileForm({ userData }: { userData: UserData }) {
       toast({ title: "Post created successfully" });
     } catch (error) {
       console.error(error);
+      toast({ variant: "destructive", title: "Unable to create post" });
     }
   }
 

@@ -19,7 +19,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { toast } from "@/components/ui/use-toast";
+import { toast, useToast } from "@/components/ui/use-toast";
 
 const FormSchema = z.object({
   comment: z.string().min(2, {
@@ -158,6 +158,7 @@ const AllPosts = ({ userData }: { userData: UserData }) => {
 };
 
 const CommentForm: React.FC<CommentFormProps> = ({ postId, userData }) => {
+  const { toast } = useToast();
   const [input, setInput] = useState(""); // Local state for each form
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -178,16 +179,17 @@ const CommentForm: React.FC<CommentFormProps> = ({ postId, userData }) => {
         postId,
       };
       try {
-        const response = await fetch(
-          "http://localhost:3001/v1/comments/comments",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(commentData),
-          }
-        );
+        await fetch("http://localhost:3001/v1/comments/comments", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(commentData),
+        });
+        toast({
+          description: "Comment was added successfully",
+        });
       } catch (error) {
         console.error(error);
+        toast({ variant: "destructive", title: "Unable to add comment" });
       }
     };
 

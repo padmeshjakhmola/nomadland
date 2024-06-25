@@ -1,4 +1,5 @@
 import ProfileForm from "@/components/ProfileForm";
+import { Toaster } from "@/components/ui/toaster";
 import fetchdata from "@/constants/server";
 
 const page = async () => {
@@ -10,6 +11,7 @@ const page = async () => {
         <h1 className="text-2xl px-5">Create Post</h1>
       </div>
       <div className="mx-5 lg:mx-96">
+        <Toaster />
         <ProfileForm userData={userData} />
       </div>
     </div>
