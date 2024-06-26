@@ -65,6 +65,8 @@ const AllPosts = ({ userData }: { userData: UserData }) => {
     fetchPosts();
   }, [fetchTrigger]);
 
+  // ! TODO: page becomes unresponsibe when delete the post...
+
   const handleDeletePost = async (postId: number) => {
     try {
       const response = await fetch(`http://localhost:3001/v1/posts/${postId}`, {
@@ -209,7 +211,10 @@ const AllPosts = ({ userData }: { userData: UserData }) => {
                       </p>
                     </div>
                   </div>
-                  <Button className="bg-red-1 hover:bg-red-2 rounded-full">
+                  <Button
+                    className="bg-red-1 hover:bg-red-2 rounded-full"
+                    disabled
+                  >
                     Follow
                   </Button>
                 </div>
@@ -280,12 +285,13 @@ const PostComments = ({
           <h1 className="text-xl flex justify-center items-center">
             {comments.length} Comments
           </h1>
+          {/* hidden the liked button */}
           <Image
             src="/icons/like.svg"
             alt="like_icon"
             width={40}
             height={40}
-            className="bg-slate-200 rounded-full cursor-pointer p-2"
+            className="bg-slate-200 rounded-full cursor-pointer p-2 invisible"
           />
         </div>
         <CommentForm
