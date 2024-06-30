@@ -74,7 +74,7 @@ function ProfileForm({ userData }: { userData: UserData }) {
 
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:3001/v1/posts", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/posts`, {
         method: "POST",
         body: formData,
       });

@@ -18,7 +18,7 @@ const fetchdata = async () => {
   };
 
   try {
-    const response = await fetch("http://localhost:3001/v1/users/register", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userData),
@@ -34,7 +34,7 @@ const fetchdata = async () => {
 const fetchComments = async (postId: number) => {
   try {
     const response = await fetch(
-      `http://localhost:3001/v1/comments/${postId}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/comments/${postId}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -45,8 +45,8 @@ const fetchComments = async (postId: number) => {
       throw new Error(`Failed to fetch comments: ${response.statusText}`);
     }
 
-    const result = await response.json();
-    console.log("Comments for post", postId, ":", result);
+    // const result = await response.json();
+    // console.log("Comments for post", postId, ":", result);
     // TODO: Update state with the fetched comments
   } catch (error) {
     console.error("Error fetching comments:", error);
