@@ -74,10 +74,13 @@ function ProfileForm({ userData }: { userData: UserData }) {
 
     try {
       setLoading(true);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/posts`, {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/v1/posts`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
       const result = await response.json();
       toast({ title: "Post created successfully" });
       setLoading(false);

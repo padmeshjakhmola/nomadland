@@ -51,10 +51,13 @@ const AllPosts = ({ userData }: { userData: UserData }) => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/posts`, {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        });
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/v1/posts`,
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
         const result = await response.json();
         setPosts(result);
       } catch (error) {
@@ -69,13 +72,16 @@ const AllPosts = ({ userData }: { userData: UserData }) => {
 
   const handleDeletePost = async (postId: number) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/posts/${postId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userData.id}`,
-        },
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/v1/posts/${postId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userData.id}`,
+          },
+        }
+      );
       if (response.ok) {
         setPosts(posts.filter((post) => post.id !== postId));
         toast({
@@ -240,7 +246,9 @@ const PostComments = ({
   const fetchComments = useCallback(async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/comments/comments/${postId}`
+        `${
+          process.env.NEXT_PUBLIC_BACKEND_URL as string
+        }/v1/comments/comments/${postId}`
       );
       const result = await response.json();
       setComments(result);
@@ -331,7 +339,9 @@ const CommentForm: React.FC<CommentFormProps> = ({
       };
       try {
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/comments/comments`,
+          `${
+            process.env.NEXT_PUBLIC_BACKEND_URL as string
+          }/v1/comments/comments`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },

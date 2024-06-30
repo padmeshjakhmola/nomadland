@@ -18,11 +18,14 @@ const fetchdata = async () => {
   };
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/users/register`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userData),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/v1/users/register`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userData),
+      }
+    );
 
     const result = await response.json();
     return result;
@@ -34,7 +37,7 @@ const fetchdata = async () => {
 const fetchComments = async (postId: number) => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/comments/${postId}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/v1/comments/${postId}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
