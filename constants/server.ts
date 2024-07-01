@@ -4,7 +4,7 @@ const fetchdata = async () => {
   const { userId } = auth();
 
   if (!userId) {
-    console.warn("User not logged in");
+    console.log("User not logged in");
   }
 
   const user = await currentUser();
