@@ -4,8 +4,12 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { useGlobalContext } from "@/context/GlobalProvider";
+import { NewPostButtonProps } from "@/types";
 
-const NewPostButton = ({ handleClick, showButtonPosts }) => {
+const NewPostButton: React.FC<NewPostButtonProps> = ({
+  handleClick,
+  showButtonPosts,
+}) => {
   const { post } = useGlobalContext();
 
   return (

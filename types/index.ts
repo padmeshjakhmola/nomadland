@@ -46,7 +46,7 @@ export interface Comment {
 export interface CommentFormProps {
   postId: number;
   userData: UserData;
-  onCommentAdded: (newComment: Comment) => void; 
+  onCommentAdded: (newComment: Comment) => void;
 }
 
 export interface Post {
@@ -70,4 +70,9 @@ export interface GlobalContextType {
 
 export interface GlobalProviderProps {
   children: ReactNode;
+}
+
+export interface NewPostButtonProps {
+  handleClick: () => void;
+  showButtonPosts: boolean;
 }
