@@ -37,6 +37,9 @@ import {
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
 
+import { fetchPosts } from "@/constants/server";
+import NewPostButton from "./NewPostsButton";
+
 const FormSchema = z.object({
   comment: z.string().min(2, {
     // message: "Comment can't be empty and of 2 characters",
@@ -47,25 +50,15 @@ const AllPosts = ({ userData }: { userData: UserData }) => {
   const test_image = images.mountains[2];
   const [posts, setPosts] = useState<Post[]>([]);
   const [fetchTrigger, setFetchTrigger] = useState(false);
+  const [showButtonPosts, setShowButtonPosts] = useState(true);
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/v1/posts`,
-          {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-          }
-        );
-        const result = await response.json();
-        setPosts(result);
-      } catch (error) {
-        console.error(error);
-      }
+    const getPosts = async () => {
+      const result = await fetchPosts();
+      setPosts(result);
+      setFetchTrigger(false);
     };
-
-    fetchPosts();
+    getPosts();
   }, [fetchTrigger]);
 
   // ! TODO: page becomes unresponsibe when delete the post...
@@ -102,8 +95,14 @@ const AllPosts = ({ userData }: { userData: UserData }) => {
     }
   };
 
+  const handleClick = async () => {
+    setFetchTrigger(true);
+    setShowButtonPosts(false);
+  };
+
   return (
     <main>
+      <NewPostButton handleClick={handleClick} showButtonPosts={showButtonPosts} />
       {posts.map((post, index) => (
         <div
           key={index}

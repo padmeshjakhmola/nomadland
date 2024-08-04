@@ -1,4 +1,5 @@
 import AllPosts from "@/components/AllPosts";
+import NewPostButton from "@/components/NewPostsButton";
 import { Toaster } from "@/components/ui/toaster";
 import { fetchdata } from "@/constants/server";
 

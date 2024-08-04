@@ -1,3 +1,6 @@
+import { ReactNode } from "react";
+import { Socket } from "socket.io-client";
+
 export interface UserData {
   already_exist: string;
   id: number;
@@ -44,4 +47,27 @@ export interface CommentFormProps {
   postId: number;
   userData: UserData;
   onCommentAdded: (newComment: Comment) => void; 
+}
+
+export interface Post {
+  id: number;
+  userId: number;
+  title: string;
+  description: string;
+  link: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
+  image: string | null;
+}
+
+export interface GlobalContextType {
+  isLoading: boolean;
+  socket: Socket | null;
+  post: Post[];
+  setPost: React.Dispatch<React.SetStateAction<Post[]>>;
+}
+
+export interface GlobalProviderProps {
+  children: ReactNode;
 }

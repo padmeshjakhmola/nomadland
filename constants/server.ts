@@ -57,4 +57,20 @@ const fetchComments = async (postId: number) => {
   }
 };
 
-export { fetchdata, fetchComments };
+const fetchPosts = async () => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL as string}/v1/posts`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { fetchdata, fetchComments, fetchPosts };

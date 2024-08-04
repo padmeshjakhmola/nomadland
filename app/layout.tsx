@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { inter, ubuntu } from "./fonts";
 import { ClerkProvider } from "@clerk/nextjs";
+import GlobalProvider from "@/context/GlobalProvider";
 
 export const metadata: Metadata = {
   title: "Nomadland",
@@ -18,10 +19,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={ubuntu.className}>{children}</body>
-      </html>
-    </ClerkProvider>
+    <GlobalProvider>
+      <ClerkProvider>
+        <html lang="en">
+          <body className={ubuntu.className}>{children}</body>
+        </html>
+      </ClerkProvider>
+    </GlobalProvider>
   );
 }
