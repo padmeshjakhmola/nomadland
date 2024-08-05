@@ -26,7 +26,7 @@ const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [sharedDataButton, setSharedDataButton] = useState<boolean>(true);
 
   useEffect(() => {
-    const socket = io("http://localhost:3001", {
+    const socket = io(process.env.NEXT_PUBLIC_BACKEND_URL as string, {
       transports: ["websocket"],
     });
 
