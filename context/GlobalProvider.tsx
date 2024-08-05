@@ -23,6 +23,7 @@ const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [socket, setSocket] = useState<Socket | null>(null);
   const [post, setPost] = useState<Post[]>([]);
+  const [sharedDataButton, setSharedDataButton] = useState<boolean>(true);
 
   useEffect(() => {
     const socket = io("http://localhost:3001", {
@@ -50,7 +51,14 @@ const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     };
   }, []);
 
-  const contextValue = { isLoading, socket, post, setPost };
+  const contextValue = {
+    isLoading,
+    socket,
+    post,
+    setPost,
+    sharedDataButton,
+    setSharedDataButton,
+  };
 
   return (
     <GlobalContext.Provider value={contextValue}>

@@ -3,9 +3,9 @@ import { auth, currentUser } from "@clerk/nextjs/server";
 const fetchdata = async () => {
   const { userId } = auth();
 
-  if (!userId) {
-    console.log("User not logged in");
-  }
+  // if (!userId) {
+  //   console.log("User not logged in");
+  // }
 
   const user = await currentUser();
 

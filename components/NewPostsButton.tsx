@@ -10,11 +10,11 @@ const NewPostButton: React.FC<NewPostButtonProps> = ({
   handleClick,
   showButtonPosts,
 }) => {
-  const { post } = useGlobalContext();
+  const { post, sharedDataButton } = useGlobalContext();
 
   return (
     <>
-      {showButtonPosts && post.length > 0 && (
+      {sharedDataButton && showButtonPosts && post.length > 0 && (
         <div className="fixed top-10 w-full flex justify-center items-center z-50">
           <Button
             className="flex flex-row items-center px-3 rounded-full gap-1 bg-red-1 hover:bg-red-2"

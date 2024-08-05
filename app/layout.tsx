@@ -19,12 +19,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <GlobalProvider>
-      <ClerkProvider>
+    <ClerkProvider>
+      <GlobalProvider>
         <html lang="en">
           <body className={ubuntu.className}>{children}</body>
         </html>
-      </ClerkProvider>
-    </GlobalProvider>
+      </GlobalProvider>
+    </ClerkProvider>
   );
 }

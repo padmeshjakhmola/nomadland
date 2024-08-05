@@ -22,6 +22,7 @@ import { UserData } from "@/types";
 import { useState } from "react";
 import { Loader } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useGlobalContext } from "@/context/GlobalProvider";
 
 const MAX_FILE_SIZE = 5000000;
 const ACCEPTED_IMAGE_TYPES = [
@@ -49,6 +50,7 @@ function ProfileForm({ userData }: { userData: UserData }) {
   const { toast } = useToast();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const { setSharedDataButton } = useGlobalContext();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -85,6 +87,7 @@ function ProfileForm({ userData }: { userData: UserData }) {
       toast({ title: "Post created successfully" });
       setLoading(false);
       router.push("/home");
+      setSharedDataButton(false);
     } catch (error) {
       console.error(error);
       toast({ variant: "destructive", title: "Unable to create post" });

@@ -66,6 +66,8 @@ export interface GlobalContextType {
   socket: Socket | null;
   post: Post[];
   setPost: React.Dispatch<React.SetStateAction<Post[]>>;
+  sharedDataButton: boolean;
+  setSharedDataButton: (value: boolean) => void;
 }
 
 export interface GlobalProviderProps {
