@@ -68,6 +68,7 @@ export interface GlobalContextType {
   setPost: React.Dispatch<React.SetStateAction<Post[]>>;
   sharedDataButton: boolean;
   setSharedDataButton: (value: boolean) => void;
+  user: any;
 }
 
 export interface GlobalProviderProps {

@@ -1,6 +1,7 @@
 "use client";
 
 import { GlobalContextType, GlobalProviderProps, Post } from "@/types";
+import { useUser } from "@clerk/nextjs";
 import React, {
   createContext,
   ReactNode,
@@ -20,6 +21,7 @@ export const useGlobalContext = (): GlobalContextType => {
 };
 
 const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
+  const { isLoaded, isSignedIn, user } = useUser();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [socket, setSocket] = useState<Socket | null>(null);
   const [post, setPost] = useState<Post[]>([]);
@@ -31,7 +33,7 @@ const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     });
 
     socket.on("connect", () => {
-      console.log("Connected to the backend");
+      console.log("user_connected");
     });
 
     socket.on("new_post", (posts) => {
@@ -47,7 +49,7 @@ const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
 
     return () => {
       socket.disconnect();
-      console.log("User_disconnected");
+      console.log("user_disconnected");
     };
   }, []);
 
@@ -58,6 +60,7 @@ const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
     setPost,
     sharedDataButton,
     setSharedDataButton,
+    user,
   };
 
   return (
