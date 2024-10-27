@@ -22,7 +22,7 @@ export default function RootLayout({
     <ClerkProvider>
       <GlobalProvider>
         <html lang="en">
-          <body className={ubuntu.className}>{children}</body>
+          <body className={`${ubuntu.className} antialiased`}>{children}</body>
         </html>
       </GlobalProvider>
     </ClerkProvider>
