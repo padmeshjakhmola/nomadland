@@ -84,7 +84,7 @@ function ProfileForm({ userData }: { userData: UserData }) {
         }
       );
       const result = await response.json();
-      // console.log("result_upload:", result);
+      console.log("result_upload:", result);
       toast({ title: "Post created successfully" });
       setLoading(false);
       router.push("/home");
