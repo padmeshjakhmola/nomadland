@@ -63,7 +63,7 @@ export interface Post {
 
 export interface GlobalContextType {
   isLoading: boolean;
-  socket: Socket | null;
+  // socket: Socket | null;
   post: Post[];
   setPost: React.Dispatch<React.SetStateAction<Post[]>>;
   sharedDataButton: boolean;
