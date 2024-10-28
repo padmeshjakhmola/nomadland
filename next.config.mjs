@@ -12,7 +12,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: `${process.env.AWS_HOST}.s3.amazonaws.com`,
+        hostname: "nomadland-project-files.s3.amazonaws.com",
       },
       {
         protocol: "https",
